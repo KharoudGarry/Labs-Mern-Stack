@@ -1,3 +1,4 @@
+<%- include("../shared/_header"); %>
 <div class="container mt-4">
     <h2 class="mb-4">Hey Guys! Upload an Image</h2>
     <form action="/upload" method="post" enctype="multipart/form-data">
@@ -9,79 +10,5 @@
     </form>
 </div>
 
-<style>
-    /* Reset some default browser styles */
-body,
-h1,
-h2,
-p,
-input,
-button {
-    margin: 0;
-    padding: 0;
-    border: 0;
-}
+<%- include("../shared/_footer"); %>
 
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
-    color: #495057;
-}
-
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.header {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #343a40;
-    color: #ffffff;
-}
-
-.header h1 {
-    font-size: 2em;
-}
-
-.form-container {
-    margin-top: 30px;
-}
-
-.form-container h2 {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.custom-file-input {
-    cursor: pointer;
-}
-
-.custom-file-label::after {
-    content: "Browse";
-}
-
-.btn-primary {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-
-.footer {
-    text-align: center;
-    padding: 20px 0;
-    background-color: #343a40;
-    color: #ffffff;
-}
-
-</style>
