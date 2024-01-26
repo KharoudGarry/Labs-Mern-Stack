@@ -1,14 +1,29 @@
 <%- include("../shared/_header"); %>
 <div class="container mt-4">
     <h2 class="mb-4">Hey Guys! Upload an Image</h2>
+    <img id="photo-preview" class="img-thumbnail" src="@photoPath" alt="Brand Image" />
     <form action="/upload" method="post" enctype="multipart/form-data">
         <div class="custom-file mb-3">
-            <input type="file" class="custom-file-input" id="myImage" name="myImage">
+            <input type="file" class="custom-file-input" id="myImage" name="myImage" onchange="previewImage(event)">
             <label class="custom-file-label" for="myImage">Choose file</label>
         </div>
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
 </div>
+<script>
+function previewImage(event) {
+    var input = event.target;
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
 
+        reader.onload = function (e) {
+            var imagePreview = document.getElementById("photo-preview");
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = "block";
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>
 <%- include("../shared/_footer"); %>
-
