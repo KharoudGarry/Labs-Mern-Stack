@@ -1,0 +1,15 @@
+<%- include("../shared/_header"); %>
+
+<h1><%= title %></h1>
+
+    <% if (images && images.length > 0) { %>
+        <div class="image-container">
+            <% images.forEach(image => { %>
+                <img src="/uploads/<%= image %>" alt="<%= image %>">
+            <% }); %>
+        </div>
+    <% } else { %>
+        <p>No images found.</p>
+    <% } %>
+
+    <%- include("../shared/_footer"); %>

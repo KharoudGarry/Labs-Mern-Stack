@@ -1,16 +1,29 @@
 import express from "express";
 import dotenv from "dotenv";
-import PageRoutes from "./routes/PagesRoutes.js";
-import CardRoutes from "./routes/CardRoutes.js";
-import mongoose from "mongoose";
+import RouteSetup from "./lib/RouteSetup.js";
+import MongooseSetup from "./lib/MongooseSetup.js";
+import session from "express-session";
+import PassportSetup from "./lib/PassportSetup.js";
 
 dotenv.config();
 
-mongoose.connect(`mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_DATABASE}.8md1ukj.mongodb.net/inclass?retryWrites=true&w=majority`)
-.then(() => console.log("MongoDb connected"))
-.catch((error) => console.error(error))
+MongooseSetup();
 
 const app = express();
+
+app.use(session({
+  secret: process.env.SECRET_KEY,
+  resave:false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: {
+      secure: (process.env.NODE_ENV === "production"),
+      samesite: (process.env.NODE_ENV === "production" ? "strict" : "lax")
+    }
+  }
+}));
+
+PassportSetup(app);
 
 app.set("view engine", "ejs");
 
@@ -41,10 +54,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
-// Register your routes
-app.use("/", PageRoutes);
-app.use("/cards", CardRoutes);
+RouteSetup(app);
 
 // Error-handling middleware
 app.use((error, req, res, next) => {

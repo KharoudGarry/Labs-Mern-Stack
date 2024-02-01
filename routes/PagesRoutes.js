@@ -13,10 +13,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 const router = Router();
-
+console.log("Router");
 router.get("/", home);
 router.get("/about", about);
-router.get("/view", viewImages);
+//router.get("/view", viewImages);
 
 
 router.post('/upload', upload.single('myImage'), (req, res) => {
