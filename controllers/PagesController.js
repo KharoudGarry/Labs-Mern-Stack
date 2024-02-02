@@ -15,8 +15,7 @@ export const about = (_, response) => {
 }
 
 export const viewImages = (_, response) => {
-    const uploadsDir = path.join(__dirname, 'uploads'); // Assuming uploads directory is in the root of your project
-    fs.readdir(uploadsDir, (err, files) => {
+    fs.readdir("./public/uploads", (err, files) => {
         if (err) {
             console.error('Error reading directory:', err);
             response.status(500).send('Error reading directory');
@@ -28,9 +27,12 @@ export const viewImages = (_, response) => {
             return ext === '.png' || ext === '.jpg' || ext === '.jpeg' || ext === '.gif';
         });
 
+        // Map image filenames to their corresponding URLs
+        const imageUrls = imageFiles.map(file => `/public/uploads/${file}`);
+
         response.render("pages/viewImages", {
             title: "View Images",
-            images: imageFiles
+            images: imageUrls
         });
     });
 }
