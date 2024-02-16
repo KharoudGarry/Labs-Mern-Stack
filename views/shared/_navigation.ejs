@@ -20,13 +20,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/cards">Cards</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages">Pages</a>
-                    </li>
 
                     <% if (isAdmin) { %>
                         <li class="nav-item">
                             <a class="nav-link" href="/users">Users</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/applications">Applications</a>
                         </li>
                     <% } %>
                 <% } %>
@@ -35,7 +36,6 @@
             <!-- Authentication links -->
             <ul class="navbar-nav">
                 <% if (!isAuthenticated) { %>
-                    <% console.log("adssadsads") %>
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
@@ -46,9 +46,6 @@
                 <% } else { %>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
-                    </li>
-                    <li class="nav-item">
-                        <img src="<%= 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png' %>" alt="User Image" width="50" height="50">
                     </li>
                 <% } %>
             </ul>

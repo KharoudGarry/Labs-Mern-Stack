@@ -1,6 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
-import RouteSetup from "./lib/RouteSetup.js";
+import RoutesSetup from "./lib/RouteSetup.js";
 import MongooseSetup from "./lib/MongooseSetup.js";
 import PassportSetup from "./lib/PassportSetup.js";
 import session from "express-session";
@@ -10,6 +10,7 @@ dotenv.config();
 
 // This creates our application
 const app = express();
+// app.use(cors());
 
 // Setup sessions
 app.use(session({
@@ -22,6 +23,14 @@ app.use(session({
         sameSite: (process.env.NODE_ENV === "production" ? "strict" : "lax")
     }
 }));
+
+// Clear session temp values
+app.use((req, res, next) => {
+    res.locals.notifications = req.session?.notifications;
+    delete req.session.notifications;
+
+    next();
+});
 
 // Setup Mongoose
 MongooseSetup();
@@ -55,10 +64,10 @@ app.use((req, _, next) => {
     next();
 });
 
-RouteSetup(app);
+RoutesSetup(app);
 
 // Our error handler
-app.use((error, _, res, __) => {
+app.use((error, req, res, __) => {
     // Converts string errors to proper errors
     if (typeof error === "string") {
         const error = new Error(error);
@@ -70,9 +79,11 @@ app.use((error, _, res, __) => {
     // Outputs our error and stack trace to our console
     console.error(error);
 
+    // Handle the various formats for our API
     res.format({
         "text/html": () => {
-            if(req.session) req.session.notifications = [{
+            // Outputs the error to the user
+            if (req.session) req.session.notifications = [{
                 alertType: "alert-danger",
                 message: error.message
             }];
@@ -80,13 +91,12 @@ app.use((error, _, res, __) => {
             res.status(error.status).redirect("/");
         },
         "application/json": () => {
-            res.status(error.status).json({ status: error.status, message:error.message});
+            res.status(error.status).json({ status: error.status, message: error.message });
         },
-        default: () => res.status(406).send("NOT ACCEPTABLE")
-    })
-
-    // Outputs the error to the user
-    res.status(error.status).send(error.message);
+        default: () => {
+            res.status(406).send("NOT ACCEPTABLE");
+        }
+    });
 });
 
 /**
