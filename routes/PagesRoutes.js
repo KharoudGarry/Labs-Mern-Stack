@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { about, home, viewImages } from "../controllers/PagesController.js";
+import { isAuthenticated } from "../controllers/AuthenticationController.js";
 import multer from "multer";
 
 const storage = multer.diskStorage({
@@ -14,7 +15,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 const router = Router();
 console.log("Router");
-router.get("/", home);
+router.get("/",isAuthenticated, home);
 router.get("/about", about);
 router.get("/view", viewImages);
 

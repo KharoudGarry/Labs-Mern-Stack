@@ -1,13 +1,18 @@
+// .eslintrc.js
 module.exports = {
-    "env": {
-        "node": true,
-        "es2021": true
+    env: {
+      es2021: true,
+      node: true,
     },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module"
+    extends: [
+      'eslint:recommended',
+    ],
+    parserOptions: {
+      ecmaVersion: 12,
+      sourceType: 'module',
     },
-    "rules": {
-    }
-};
+    rules: {
+      // your rules
+    },
+  };
+  
