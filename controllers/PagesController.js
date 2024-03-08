@@ -13,9 +13,16 @@ export const about = (_, response) => {
         title: "About"
     });
 }
+
 export const contact = (_, response) => {
     response.render("pages/contact",{
         title: "Contact"
+    });
+}
+
+export const event = (_, response) => {
+    response.render("pages/event",{
+        title: "Event"
     });
 }
 

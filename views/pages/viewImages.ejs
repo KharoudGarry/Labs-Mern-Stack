@@ -5,9 +5,10 @@
 <% if (images && images.length > 0) { %>
     <div class="image-container">
         <% images.forEach(image => { %>
-            <img src="<%= image %>" alt="<%= image %>">
+            <img src="<%= image %>" alt="<%= image %>"/>
         <% }); %>
     </div>
+    <img src="/public/uploads/download.jpeg"/>
 <% } else { %>
     <p>No images found.</p>
 <% } %>

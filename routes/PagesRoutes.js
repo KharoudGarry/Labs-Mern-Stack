@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { about, home,contact, viewImages } from "../controllers/PagesController.js";
+import { about, home,contact, viewImages,event } from "../controllers/PagesController.js";
 import { isAuthenticated } from "../controllers/AuthenticationController.js";
 import multer from "multer";
 
@@ -18,6 +18,7 @@ console.log("Router");
 router.get("/",isAuthenticated, home);
 router.get("/contact", contact);
 router.get("/about", about);
+router.get("/event", event);
 router.get("/view", viewImages);
 
 
